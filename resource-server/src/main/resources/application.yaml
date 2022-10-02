@@ -1,0 +1,27 @@
+server:
+  port: 8082
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/oauth2/jwks
+
+#  ssl:
+#    key-store: ../certs/tfrank-a01.vmware.com.p12
+#    key-store-password: changeit
+#    key-alias: localhost
+#    enabled: true
+#    trust-store: ../certs/truststore.jks
+#    trust-store-password: changeit
+#    client-auth: need
+
+#spring:
+#  security:
+#    user:
+#      name: Admin
+#      password: admin
+debug: true
+
+# /Users/tfrank/git/gateway-examples
