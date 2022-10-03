@@ -1,0 +1,16 @@
+{
+  "CN": "resource-server",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "US",
+      "L": "Leesburg",
+      "O": "ACME",
+      "OU": "",
+      "ST": "Virginia"
+    }
+  ]
+}

@@ -35,26 +35,10 @@ public class WebAppApplication {
 
 	@GetMapping("/user")
 	public String user(@AuthenticationPrincipal Jwt jwt) {
-
-
-
-		return jwt.getTokenValue();
+		return jwt.getSubject();
 	}
 
-//	@Bean
-//	public UserDetailsService userDetailsService() {
-//		return new UserDetailsService() {
-//			@Override
-//			public UserDetails loadUserByUsername(String username) {
-//				if (username.equals("bob")) {
-//					return new User(username, "",
-//							AuthorityUtils
-//									.commaSeparatedStringToAuthorityList("ROLE_USER"));
-//				}
-//				throw new UsernameNotFoundException("User not found!");
-//			}
-//		};
-//	}
+
 
 //	@Bean
 //	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
