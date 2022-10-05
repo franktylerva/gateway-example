@@ -1,4 +1,13 @@
 spring:
+  cloud:
+    gateway:
+      routes:
+        - id: resource-server
+          uri: http://localhost:8083
+          predicates:
+            - Path=/user
+          filters:
+            - TokenRelay=
   security:
     user:
       name: admin

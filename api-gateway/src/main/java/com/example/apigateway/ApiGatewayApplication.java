@@ -44,14 +44,4 @@ public class ApiGatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
-
-	@Bean
-	public RouteLocator myRoutes(RouteLocatorBuilder builder, TokenRelayGatewayFilterFactory filterFactory) {
-		return builder.routes()
-				.route(p -> p
-						.path("/user")
-						.filters(f -> f.filter(filterFactory.apply()))
-						.uri("http://127.0.0.1:8083"))
-				.build();
-	}
 }
