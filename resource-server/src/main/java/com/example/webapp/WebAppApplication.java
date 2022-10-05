@@ -37,16 +37,4 @@ public class WebAppApplication {
 	public String user(@AuthenticationPrincipal Jwt jwt) {
 		return jwt.getSubject();
 	}
-
-
-
-//	@Bean
-//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().anyRequest().authenticated()
-//				.and()
-//				.x509()
-//				.subjectPrincipalRegex("CN=(.*?)(?:,|$)")
-//				.userDetailsService(userDetailsService());
-//		return http.build();
-//	}
 }

@@ -1,8 +1,8 @@
-server:
-  port: 8083
-
 spring:
   security:
+    user:
+      name: admin
+      password: password
     oauth2:
       client:
         registration:
@@ -14,7 +14,15 @@ spring:
             scope:
               - openid
               - user.read
-            redirect-uri: http://127.0.0.1:8083/login/oauth2/code/login-client
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/login-client
         provider:
           login-client:
-            issuer-uri: http://127.0.0.1:8080
+            issuer-uri: http://127.0.0.1:8082
+
+management:
+  endpoints:
+    web.exposure.include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+debug: true

@@ -81,13 +81,19 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("user")
+        UserDetails bob = User.withDefaultPasswordEncoder()
+                .username("bob")
                 .password("password")
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(userDetails);
+        UserDetails denise = User.withDefaultPasswordEncoder()
+                .username("denise")
+                .password("password")
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(bob, denise);
     }
 
     @Bean
@@ -112,8 +118,8 @@ public class SecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("http://127.0.0.1:8083/login/oauth2/code/login-client")
-                .redirectUri("http://127.0.0.1:8083/authorized")
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/login-client")
+                .redirectUri("http://127.0.0.1:8080/authorized")
                 .scope(OidcScopes.OPENID)
                 .scope("user.read")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
