@@ -34,4 +34,3 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-debug: true
