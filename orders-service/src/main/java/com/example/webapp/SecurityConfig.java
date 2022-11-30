@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((authorize) -> authorize
                         .antMatchers(HttpMethod.GET, "/user").hasAuthority("SCOPE_user.read")
+                        .antMatchers(HttpMethod.GET, "/user1").hasAuthority("SCOPE_user.admin")
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer()

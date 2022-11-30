@@ -17,6 +17,7 @@ public class LoopbackIpRedirectWebFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+
         String host = exchange.getRequest().getURI().getHost();
         if (host != null && host.equals("localhost")) {
             UriComponents uri = UriComponentsBuilder.fromHttpRequest(exchange.getRequest()).host("127.0.0.1").build();

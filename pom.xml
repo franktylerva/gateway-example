@@ -11,7 +11,7 @@
     <modules>
         <module>api-gateway</module>
         <module>auth-server</module>
-        <module>resource-server</module>
+        <module>orders-service</module>
     </modules>
 
 </project>

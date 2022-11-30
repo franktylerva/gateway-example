@@ -8,6 +8,12 @@ spring:
             - Path=/user
           filters:
             - TokenRelay=
+        - id: resource-server1
+          uri: http://localhost:8083
+          predicates:
+            - Path=/user1
+          filters:
+            - TokenRelay=
   security:
     user:
       name: admin
@@ -34,3 +40,5 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+
+trace: true
