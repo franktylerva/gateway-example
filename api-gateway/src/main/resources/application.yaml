@@ -45,6 +45,9 @@ spring:
 
 springdoc:
   swagger-ui:
+    oauth:
+      clientId: login-client
+      clientSecret: secret
     urls:
       - name: customer
         url: /v3/api-docs/customer
