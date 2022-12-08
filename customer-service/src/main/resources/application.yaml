@@ -1,0 +1,19 @@
+server:
+  port: 8083
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8082/oauth2/jwks
+          issuer-uri: http://localhost:8082
+
+springdoc:
+  swagger-ui:
+    oauth:
+      clientId: login-client
+      clientSecret: secret
+  oAuthFlow:
+    authorizationUrl: http://localhost:8082/oauth2/authorize
+    tokenUrl: http://localhost:8082/oauth2/token

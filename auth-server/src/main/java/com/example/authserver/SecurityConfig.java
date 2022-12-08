@@ -117,8 +117,10 @@ public class SecurityConfig {
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .redirectUri("http://127.0.0.1:8080/login/oauth2/code/login-client")
                 .redirectUri("http://127.0.0.1:8080/authorized")
+                .redirectUri("http://127.0.0.1:8080/swagger-ui/oauth2-redirect.html")
                 .scope(OidcScopes.OPENID)
                 .scope("user.read")
+                .scope("user.write")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
                 .build();
 

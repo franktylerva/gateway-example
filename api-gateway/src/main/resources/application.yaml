@@ -5,7 +5,7 @@ spring:
         - id: resource-server
           uri: http://localhost:8083
           predicates:
-            - Path=/user
+            - Path=/user, /v3/api-docs/**, /swagger-ui/**
           filters:
             - TokenRelay=
         - id: resource-server1
@@ -29,16 +29,18 @@ spring:
             scope:
               - openid
               - user.read
-            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/login-client
+            redirect-uri: http://localhost:8080/login/oauth2/code/login-client
         provider:
           login-client:
-            issuer-uri: http://127.0.0.1:8082
+            issuer-uri: http://localhost:8082
 
 management:
   endpoints:
-    web.exposure.include: '*'
+    web:
+      exposure:
+        include: "*"
   endpoint:
     health:
       show-details: ALWAYS
-
-trace: true
+    gateway:
+      enabled: true
