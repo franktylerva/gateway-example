@@ -122,6 +122,8 @@ public class SecurityConfig {
                 .scope(OidcScopes.OPENID)
                 .scope("user.read")
                 .scope("user.write")
+                .scope("read")
+                .scope("write")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
                 .build();
 
