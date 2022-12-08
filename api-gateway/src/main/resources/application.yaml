@@ -2,18 +2,20 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: resource-server
+        - id: customer-service
           uri: http://localhost:8083
           predicates:
-            - Path=/user, /v3/api-docs/**, /swagger-ui/**
+            - Path=/customer/**
           filters:
+            - RewritePath=/customer/(?<path>.*), /$\{path}
             - TokenRelay=
-        - id: resource-server1
-          uri: http://localhost:8083
+        - id: openapi
+          uri: http://localhost:8080
           predicates:
-            - Path=/user1
+            - Path=/v3/api-docs/**
           filters:
-            - TokenRelay=
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
   security:
     user:
       name: admin
@@ -29,10 +31,16 @@ spring:
             scope:
               - openid
               - user.read
-            redirect-uri: http://localhost:8080/login/oauth2/code/login-client
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/login-client
         provider:
           login-client:
-            issuer-uri: http://localhost:8082
+            issuer-uri: http://127.0.0.1:8082
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: customer
+        url: /v3/api-docs/customer
 
 management:
   endpoints:
