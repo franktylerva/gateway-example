@@ -24,7 +24,6 @@
         <module>auth-server</module>
         <module>order-service</module>
         <module>customer-service</module>
-        <module>identity-provider</module>
     </modules>
 
     <dependencyManagement>

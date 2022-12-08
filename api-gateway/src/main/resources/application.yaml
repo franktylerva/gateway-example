@@ -8,13 +8,20 @@ spring:
             - Path=/customer/**
           filters:
             - RewritePath=/customer/(?<path>.*), /$\{path}
-            - TokenRelay=
+        - id: order-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/order/**
+          filters:
+            - RewritePath=/order/(?<path>.*), /$\{path}
         - id: openapi
           uri: http://localhost:8080
           predicates:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+      default-filters:
+        - TokenRelay=
 
   security:
     user:
@@ -41,6 +48,8 @@ springdoc:
     urls:
       - name: customer
         url: /v3/api-docs/customer
+      - name: order
+        url: /v3/api-docs/order
 
 management:
   endpoints:
