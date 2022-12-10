@@ -31,11 +31,16 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -51,14 +56,30 @@ public class SecurityConfig {
             throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         http
-                // Redirect to the login page when not authenticated from the
-                // authorization endpoint
-                .exceptionHandling((exceptions) -> exceptions
-                        .authenticationEntryPoint(
-                                new LoginUrlAuthenticationEntryPoint("/login"))
-                );
+            // Redirect to the login page when not authenticated from the
+            // authorization endpoint
+            .exceptionHandling((exceptions) -> exceptions
+                .authenticationEntryPoint(
+                new LoginUrlAuthenticationEntryPoint("/login"))
+            );
+
+            http.cors().configurationSource( corsConfigurationSource() );
 
         return http.build();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080","http://localhost:8081","http://localhost:8082"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Requestor-Type"));
+        configuration.setExposedHeaders(Arrays.asList("X-Get-Header"));
+        configuration.setMaxAge(3600L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean
@@ -71,7 +92,10 @@ public class SecurityConfig {
                 )
                 // Form login handles the redirect to the login page from the
                 // authorization server filter chain
+                .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults());
+
+        http.cors().disable();
 
         return http.build();
     }
@@ -81,13 +105,15 @@ public class SecurityConfig {
         UserDetails bob = User.withDefaultPasswordEncoder()
                 .username("bob")
                 .password("password")
-                .roles("USER")
+                .roles("USER","ADMIN")
+                .authorities("GROUP1")
                 .build();
 
         UserDetails denise = User.withDefaultPasswordEncoder()
                 .username("denise")
                 .password("password")
                 .roles("USER")
+                .authorities("GROUP2", "GROUP3")
                 .build();
 
         return new InMemoryUserDetailsManager(bob, denise);
@@ -108,7 +134,7 @@ public class SecurityConfig {
 
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient loginClient = RegisteredClient.withId(UUID.randomUUID().toString())
+        RegisteredClient loginclient1 = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("login-client")
                 .clientSecret("{noop}secret")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
@@ -122,12 +148,13 @@ public class SecurityConfig {
                 .scope(OidcScopes.OPENID)
                 .scope("user.read")
                 .scope("user.write")
+                .scope("user.admin")
                 .scope("read")
                 .scope("write")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
                 .build();
 
-        return new InMemoryRegisteredClientRepository(loginClient);
+        return new InMemoryRegisteredClientRepository(loginclient1);
     }
 
     @Bean
