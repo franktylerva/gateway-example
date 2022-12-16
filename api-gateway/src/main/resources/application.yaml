@@ -20,6 +20,10 @@ spring:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+        - id: ui
+          uri: http://order-ui:3000
+          predicates:
+            - Path=/**
       default-filters:
         - TokenRelay=
 

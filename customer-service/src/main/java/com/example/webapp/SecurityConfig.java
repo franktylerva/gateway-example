@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .antMatchers(HttpMethod.GET, "/user").hasAuthority("SCOPE_user.read")
-                        .antMatchers(HttpMethod.GET, "/user1").hasAuthority("SCOPE_user.admin")
+                        .antMatchers(HttpMethod.POST, "/user").hasAuthority("SCOPE_user.admin")
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer()

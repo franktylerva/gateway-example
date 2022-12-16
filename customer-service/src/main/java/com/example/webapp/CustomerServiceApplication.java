@@ -41,5 +41,6 @@ public class CustomerServiceApplication {
 	@PostMapping("/user")
 	public void createUser(@RequestBody @Valid UserRequest user, Authentication authentication) {
 		System.out.println("User: " + user.name() );
+		throw new DuplicateException("Something bad happended...");
 	}
 }
