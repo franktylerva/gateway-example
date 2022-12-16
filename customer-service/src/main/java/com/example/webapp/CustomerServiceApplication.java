@@ -24,7 +24,7 @@ import java.util.Map;
 @EnableWebSecurity
 @OpenAPIDefinition(
 		info = @Info(title = "Customer Service", description = "Customer Service", version = "v1"),
-		servers = { @Server(url = "http://127.0.0.1:8080/customer", description = "Gateway" ) }
+		servers = { @Server(url = "http://customer-service:8080/customer", description = "Gateway" ) }
 )
 @Validated
 public class CustomerServiceApplication {
