@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeExchange(exchanges -> exchanges
                         .anyExchange().authenticated()
                 )
-                .oauth2Login();
+                .oauth2ResourceServer().jwt().and().and().oauth2Login();
         return http.build();
     }
 
