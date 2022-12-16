@@ -38,6 +38,7 @@ spring:
             scope:
               - openid
               - user.read
+              - user.admin
             redirect-uri: http://127.0.0.1:8080/login/oauth2/code/login-client
         provider:
           login-client:
@@ -64,3 +65,7 @@ management:
       show-details: ALWAYS
     gateway:
       enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

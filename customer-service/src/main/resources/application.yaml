@@ -15,5 +15,5 @@ springdoc:
       clientId: login-client
       clientSecret: secret
   oAuthFlow:
-    authorizationUrl: http://localhost:8082/oauth2/authorize
-    tokenUrl: http://localhost:8082/oauth2/token
+    authorizationUrl: http://127.0.0.1:8082/oauth2/authorize
+    tokenUrl: http://127.0.0.1:8082/oauth2/token

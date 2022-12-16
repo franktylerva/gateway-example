@@ -106,6 +106,7 @@ public class SecurityConfig {
                 .username("bob")
                 .password("password")
                 .roles("USER","ADMIN")
+                .authorities("USER","ADMIN")
                 .authorities("GROUP1")
                 .build();
 
